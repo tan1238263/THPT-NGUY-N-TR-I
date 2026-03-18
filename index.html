@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THPTNT PRO</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6fb;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    text-align: center;
+    padding: 50px;
+}
+
+/* NAV */
+nav {
+    display: flex;
+    justify-content: center;
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+}
+
+nav button {
+    padding: 15px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+nav button:hover {
+    color: #007bff;
+}
+
+/* SECTION */
+.section {
+    display: none;
+    padding: 40px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.active {
+    display: block;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 15px 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 20px;
+}
+
+/* BUTTON */
+.btn {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* QUIZ */
+.quiz-option {
+    display: block;
+    margin: 8px 0;
+}
+
+/* FOOTER */
+footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>THPTNT PRO</h1>
+    <p>Nền tảng học tập thông minh</p>
+</header>
+
+<nav>
+    <button onclick="show('home')">Trang chủ</button>
+    <button onclick="show('lessons')">Bài giảng</button>
+    <button onclick="show('quiz')">Thi online</button>
+    <button onclick="show('contact')">Liên hệ</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="section active">
+    <h2>Trang chủ</h2>
+    <div class="grid">
+        <div class="card">📢 Tin tức mới</div>
+        <div class="card">📚 Tài liệu đầy đủ</div>
+        <div class="card">🎯 Luyện thi hiệu quả</div>
+    </div>
+</div>
+
+<!-- LESSON -->
+<div id="lessons" class="section">
+    <h2>Bài giảng</h2>
+
+    <input id="search" placeholder="Tìm kiếm..." onkeyup="searchLesson()">
+
+    <div id="lessonList" class="grid">
+        <div class="card lesson">Toán 12 - Hàm số</div>
+        <div class="card lesson">Vật lý - Dao động</div>
+        <div class="card lesson">Hóa học - Este</div>
+    </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="section">
+    <h2>Thi trắc nghiệm</h2>
+
+    <div class="card">
+        <p>1. Hệ điều hành nào là mã nguồn mở?</p>
+
+        <label class="quiz-option"><input type="radio" name="q1" value="0"> Windows</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="1"> Linux</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="0"> iOS</label>
+
+        <br>
+        <button class="btn" onclick="checkQuiz()">Nộp bài</button>
+
+        <p id="result"></p>
+    </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="section">
+    <h2>Liên hệ</h2>
+    <div class="card">
+        <p>Email: thptnt@gmail.com</p>
+        <p>SĐT: 0123456789</p>
+    </div>
+</div>
+
+<footer>
+    © 2026 THPTNT PRO
+</footer>
+
+<script>
+function show(id){
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function checkQuiz(){
+    let ans = document.querySelector('input[name="q1"]:checked');
+    if(!ans){
+        alert("Chọn đáp án!");
+        return;
+    }
+
+    if(ans.value == "1"){
+        document.getElementById("result").innerText = "Đúng!";
+    } else {
+        document.getElementById("result").innerText = "Sai!";
+    }
+}
+
+function searchLesson(){
+    let input = document.getElementById("search").value.toLowerCase();
+    let lessons = document.querySelectorAll(".lesson");
+
+    lessons.forEach(l => {
+        if(l.innerText.toLowerCase().includes(input)){
+            l.style.display = "block";
+        } else {
+            l.style.display = "none";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
